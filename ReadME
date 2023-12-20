@@ -1,0 +1,44 @@
+// Readme Ballast Lane Challenge
+
+
+The Solution is composed by 3 projects:
+1) AuthAPI 
+      This API manage the Login and Registration endpoints for users.
+
+      To handle users and roles, this API was created using EFcore.
+      This API supports dockerization.
+
+2) CarsAPI
+      This API controls all the Cars operations for the CRUD.
+      Can be use with Docker just creating the Dockerfile.
+
+3) CarsAPI.Test
+      Here you will found a few unit testing cases using Xunit framework.
+
+
+
+---------------------------------------------------------------------------------------------------
+
+Steps to run the project:
+
+1) Execute the dbCreation.sql Script
+2) Excecute the sql_SP.sql script
+
+These two files are necesary to manage the data of the CarsAPI project.
+
+To consume all the private endpoints you have to run the AuthAPI project, so, here you have the steps to run it
+
+1) If you did not execute all the SQL scripts from the CarsAPI Project, you have to.
+2) Execute Database Update command to start the migrations scripts.
+3) Before to Login, you must create an user with the CreateUser endpoint
+   1) User Password must be Strong!.
+
+
+If you wanna use Docker on the AuthAPI project you have to execute the following commands:
+
+ docker build -t authapi .     
+ docker run -d -p 5001:80 --name authapicontainer authapi
+
+ 
+
+Both projects run with swagger documentation.

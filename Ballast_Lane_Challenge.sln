@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsAPI", "\CarsAPI\CarsAPI.csproj", "{C6F88D1B-4E6B-447F-A64F-0282A9217A74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsAPI.Test", "\CarsAPI.Test\CarsAPI.Test.csproj", "{13BB184A-F854-4927-B5AA-C0EF9ADA94E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthAPI", "\AuthAPI\AuthAPI.csproj", "{13BB184A-F854-4927-B5AA-C0EF9ADA94E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6F88D1B-4E6B-447F-A64F-0282A9217A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F88D1B-4E6B-447F-A64F-0282A9217A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F88D1B-4E6B-447F-A64F-0282A9217A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F88D1B-4E6B-447F-A64F-0282A9217A74}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9393467C-F854-4A1A-876E-0DAFB911E02B}
+	EndGlobalSection
+EndGlobal
