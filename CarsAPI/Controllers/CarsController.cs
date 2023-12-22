@@ -13,12 +13,14 @@ public class CarsController : ControllerBase
     //private readonly CarsService _carService;
 
 
+    // after reactoring all the actions, this line will be removed.
     private readonly string connectionString;
     private readonly IConfiguration _configuration;
 
     public CarsController( IConfiguration configuration)
     {
         _configuration = configuration;
+        // after reactoring all the actions, this line will be removed.
         connectionString = configuration.GetConnectionString("DBCars");
 
     }
@@ -78,6 +80,16 @@ public class CarsController : ControllerBase
     [Authorize]
     // GET: api/Cars/5
     [HttpGet("{id}")]
+    public async Task<ActionResult<IEnumerable<CarsItemDTO>>> GetCar(int id)
+    {
+        List<CarsItemDTO> cars =   new List<CarsItemDTO>();
+        CarsService _carService = new CarsService(_configuration);
+        cars = _carService.GetCars(id);
+        
+        return cars;
+    }
+    /*
+    // This code is commented based on refactoring
     public async Task<ActionResult<CarsItemDTO>> GetCar(int id)
     {
         CarsItemDTO car= new CarsItemDTO();
@@ -111,6 +123,7 @@ public class CarsController : ControllerBase
         }
         return car;
     }
+    */
 
     // POST: api/Cars
     [Authorize]
@@ -145,7 +158,9 @@ public class CarsController : ControllerBase
             return BadRequest();
         }
 
-        if (!CheckIfExists(id))
+        CarsService _carService = new CarsService(_configuration);
+
+        if (!_carService.CheckIfCarExists(id))
         {
             return NotFound();
         }
@@ -181,8 +196,9 @@ public class CarsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTodoItem(int id)
     {
-        if (!CheckIfExists(id))
-        {
+        CarsService _carService = new CarsService(_configuration);
+
+        if (!_carService.CheckIfCarExists(id))        {
             return NotFound();
         }
         try
@@ -198,36 +214,12 @@ public class CarsController : ControllerBase
                     }
             }
         }
-        catch (Exception e)
+        catch
         {
             return StatusCode(500);
         }
 
         return NoContent();
-    }
-    private bool CheckIfExists (int id)
-    {
-        using (SqlConnection connection=new(connectionString))
-        {
-            connection.Open();
-            using( SqlCommand cmd= new ("sp_Cars_CheckIfExists", connection))
-            {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@CarID",  id);
-                
-                using (SqlDataReader reader= cmd.ExecuteReader())
-                {
-                    if ( reader.HasRows)
-                    { 
-                        while(reader.Read())
-                        {
-                            return Convert.ToBoolean( reader["Result"]);
-                        };
-                    }
-                }
-            }
-        }
-            return false;
     }
     
 }

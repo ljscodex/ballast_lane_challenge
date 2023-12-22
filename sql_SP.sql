@@ -106,7 +106,32 @@ GRANT EXECUTE ON sp_Cars_CheckifExists
 GO 
 
 
+GO 
 
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sp_Cars_Delete')
+    DROP PROCEDURE sp_Cars_Delete
+
+GO
+
+
+CREATE PROCEDURE sp_Cars_Delete
+    @CarID   int    
+AS
+
+BEGIN
+    
+    DELETE FROM dbo.Cars where carID = @CarID
+
+END
+
+GO
+
+GRANT EXECUTE ON sp_Cars_Delete
+    TO db_Cars_backend_user;  
+GO 
+
+/*
+// Replaced by DRY Support on the Backend API ( CarsAPI )
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sp_Cars_List')
     DROP PROCEDURE sp_Cars_List
 
@@ -127,6 +152,7 @@ GO
 GRANT EXECUTE ON sp_Cars_List
     TO db_Cars_backend_user;  
 GO 
+*/
 
 GO
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sp_Cars_Search')
@@ -135,7 +161,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sp_Cars_Search
 GO
 
 CREATE PROCEDURE sp_Cars_Search
-    @CarID    INT 
+    @CarID    INT  = null
 AS
 
 BEGIN
@@ -148,6 +174,11 @@ BEGIN
                     inner join dbo.users u on u.userid = c.userid
                  where c.CarID = @CarID
 
+            END
+        ELSE    
+            BEGIN
+                SELECT c.* , u.UserName from dbo.Cars c
+                    inner join dbo.users u on u.userid = c.userid
             END
     end TRY
     begin CATCH 
