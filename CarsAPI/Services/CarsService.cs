@@ -1,10 +1,11 @@
 using System.Data.SqlClient;
+using CarsAPI.Interfaces;
 using ChallengeAPI.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace ChallengeAPI.Services;
 
-public  class CarsService
+public  class CarsService: ICarService
 {
 
     private SqlConnection _connection;
